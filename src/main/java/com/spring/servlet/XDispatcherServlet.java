@@ -107,7 +107,7 @@ public class XDispatcherServlet extends HttpServlet {
                     }
                     iocMaps.put(beanName, clazz.newInstance());
 
-                    // 如果没有自定义民称，按照接口类型创建一个实例
+                    // 如果没有自定义名称，按照接口类型创建一个实例
                     for (Class<?> i : clazz.getInterfaces()) {
                         iocMaps.put(i.getName(), clazz.newInstance());
                     }
@@ -230,7 +230,8 @@ public class XDispatcherServlet extends HttpServlet {
         }
 
         String beanName = toLowerFirstCase(method.getDeclaringClass().getSimpleName());
+        System.out.println("paramValues====>>" + paramValues);
         // 利用反射机制调用
-        method.invoke(iocMaps.get(beanName), req, resp);
+        method.invoke(iocMaps.get(beanName), paramValues);
     }
 }
